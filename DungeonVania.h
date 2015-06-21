@@ -17,7 +17,7 @@ class Dungeon;
 
 static void createNewPlayer(Player* p);
 static bool yesNo();
-static void getMenuText();
+static void getMenuText(Player p);
 static void printPlayerInventoryWithFormatting(Player p);
 static void endGame();
 static void deathMessage(Dungeon d);
