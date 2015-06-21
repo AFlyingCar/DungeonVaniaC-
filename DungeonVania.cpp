@@ -8,7 +8,7 @@ int main(){
 	//std::cout << p.getName() << std::endl;
 	int input = 0;
 	while(true){
-		getMenuText();
+		getMenuText(p);
 		std::cin >> input;
 		getMenu(input,p);
 	}
@@ -31,11 +31,32 @@ static bool yesNo(){
 	}
 }
 
-static void getMenuText(){
-
+static void getMenuText(Player p){
+	std::cout << p.getName() << ": starts in the town" << std::endl;
+	std::cout << p.getName() << ": checks their pockets and finds " << p.getMoney() << "gold" << std::endl;
+	std::cout << "0. Go to bed" << std::endl;
+	std::cout << "1. Go to the nearby dungeon" << std::endl;
+	std::cout << "2. Go to the store" << std::endl;
+	std::cout << "3. Check Inventory" << std::endl;
+	std::cout << "4. Save Game" << std::endl;
+	std::cout << "Choice: " << std::endl;
 }
 
 static void printPlayerInventoryWithFormatting(Player p){
+	std::vector<Item*> inv = p.getInventory();
+	Item wep = *inv.at(2);
+	Item arm = *inv.at(1);
+	Item pot = *inv.at(0);
+
+	std::cout << p.getName() << std::endl;
+	std::cout << "Money: " << p.getMoney() << std::endl;
+	std::cout << "Health: " << p.getHealth() << std::endl;
+
+	std::cout << "Weapon Tier: " << wep.getItemAttribute("TIER") << std::endl;
+	std::cout << "Weapon Damage: " << wep.getItemAttribute("MIN_DAMAGE") << " to " << wep.getItemAttribute("MAX_DAMAGE") << std::endl;
+	std::cout << "Armour Tier: " << arm.getItemAttribute("TIER") << std::endl;
+	std::cout << "Armour Defense: " << arm.getItemAttribute("DEFENSE") << std::endl;
+	std::cout << "Amount of Potions: " << pot.getItemAttribute("AMOUNT") << std::endl;
 }
 
 static void endGame(){
