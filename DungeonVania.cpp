@@ -1,10 +1,13 @@
 #include "DungeonVania.h"
 #include "Player.h"
 #include "Dungeon.h"
+#include "Shop.h"
+#include "Item.h"
 
 int main(){
 	Player p;
-	//Dungeon d;
+	Dungeon d;
+	Shop s(&p);
 	// TODO: Add save stuff here once it is written
 	createNewPlayer(&p);
 	//std::cout << p.getName() << std::endl;
@@ -12,7 +15,7 @@ int main(){
 	while(true){
 		getMenuText(p);
 		std::cin >> input;
-		getMenu(input,p);
+		getMenu(input,p,s,d);
 	}
 }
 
@@ -82,13 +85,15 @@ static void deathMessage(Dungeon d){
 static void goToDungeon(){
 }
 
-static void goToStore(){
+static void goToStore(Player p, Shop s){
+	std::cout << p.getName() << ": enters the store" << std::endl;
+	std::cout << s.menu() << std::endl;
 }
 
 /*
 Parse the user's choice and call the appropriate function.
 */
-static void getMenu(int choice, Player p){
+static void getMenu(int choice, Player p, Shop s, Dungeon d){
 	switch(choice){
 	 case 0:
 		endGame();
@@ -97,7 +102,7 @@ static void getMenu(int choice, Player p){
 		goToDungeon();
 		break;
 	 case 2:
-		std::cout << p.getName() << " goes to the store." << std::endl;
+		goToStore(p,s);
 		break;
 	 case 3:
 		printPlayerInventoryWithFormatting(p);
