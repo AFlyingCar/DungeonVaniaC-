@@ -1,4 +1,6 @@
 #include "DungeonVania.h"
+#include "Player.h"
+#include "Dungeon.h"
 
 int main(){
 	Player p;

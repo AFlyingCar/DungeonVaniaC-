@@ -5,15 +5,8 @@
 #include <vector>
 #include <string.h>
 
-/*
-#include "SaveGameUtils.h"
-#include "Dungeon.h"
-#include "Shop.h"
-*/
 class Player;
 class Dungeon;
-
-#include "Player.h"
 
 static void createNewPlayer(Player* p);
 static bool yesNo();
