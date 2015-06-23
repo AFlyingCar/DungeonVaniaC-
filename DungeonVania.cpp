@@ -20,6 +20,9 @@ static void createNewPlayer(Player* p){
 	p->setName("Test");
 }
 
+/*
+A simple function for looping and waiting for a yes or no answer from the user
+*/
 static bool yesNo(){
 	std::string yn = "";
 	while(true){
@@ -33,6 +36,9 @@ static bool yesNo(){
 	}
 }
 
+/*
+Prints the town menu to the screen
+*/
 static void getMenuText(Player p){
 	std::cout << p.getName() << ": starts in the town" << std::endl;
 	std::cout << p.getName() << ": checks their pockets and finds " << p.getMoney() << "gold" << std::endl;
@@ -44,6 +50,9 @@ static void getMenuText(Player p){
 	std::cout << "Choice: " << std::endl;
 }
 
+/*
+Prints the player's inventory to the screen in a nice, formatted way.
+*/
 static void printPlayerInventoryWithFormatting(Player p){
 	std::vector<Item*> inv = p.getInventory();
 	Item wep = *inv.at(2);
@@ -76,6 +85,9 @@ static void goToDungeon(){
 static void goToStore(){
 }
 
+/*
+Parse the user's choice and call the appropriate function.
+*/
 static void getMenu(int choice, Player p){
 	switch(choice){
 	 case 0:

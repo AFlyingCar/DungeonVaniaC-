@@ -27,6 +27,11 @@ Dungeon::Dungeon(std::string newName):
 
 Dungeon::~Dungeon(){ }
 
+/*
+Increments the room counter by one and returns true if and only if there is another room to go to. False otherwise.
+PreCondition: rooms has been initialized and filled
+PostCondition: c_rooom = c_room + 1
+*/
 bool Dungeon::moveToNextRoom(){
 	if(doesHaveNextRoom() && canMoveToNextRoom()){
 		m_roomPtr++;
@@ -37,14 +42,26 @@ bool Dungeon::moveToNextRoom(){
 		return false;
 }
 
+/*
+Returns true if and only if there is another room to go to.
+PreCondition: rooms has been initialized and filled
+*/
 bool Dungeon::doesHaveNextRoom(){
 	return !getCurrentRoom()->isBossRoom();
 }
 
+/*
+Returns true if and only if the player can move to next room
+PreCondition: Current room is not null
+*/
 bool Dungeon::canMoveToNextRoom(){
 	return getCurrentRoom()->canMoveToNextRoom();
 }
 
+/*
+Returns the current room that is pointed to by c_room
+PreCondition: rooms has been initialized and filled
+*/
 Room* Dungeon::getCurrentRoom(){
 	return m_rooms.at(m_roomPtr);
 }
@@ -53,6 +70,10 @@ int Dungeon::getRoomPtr(){
 	return m_roomPtr;
 }
 
+/*
+Performs actions for each enemy in the current room. Assumes that the player has already performed an action.
+PreCondition: rooms is not null, p is not null
+*/
 void Dungeon::Execute(Player *p){
 	Room* r = getCurrentRoom();
 	if(canMoveToNextRoom() && !r->isBossRoom()){
@@ -87,6 +108,11 @@ std::string Dungeon::getName(){
 	return m_name;
 }
 
+/*
+Generates a random number of rooms in the dungeon, from 1 to the maximum
+PreCondition: rooms has been initialized
+PostCondition: rooms is filled with a random number of rooms, and has a boss room at the end
+*/
 void Dungeon::generateRooms(){
 	srand(time(NULL));
 	int dungeonSize = rand()%MAX_ROOM_AMT+1;
@@ -96,8 +122,10 @@ void Dungeon::generateRooms(){
 	m_rooms.push_back(new Room(true));
 }
 
-// Generates a random unique name for the dungeon
-// Cached for efficiency
+/*
+Generates a random unique name for the dungeon.
+PostCondition: NAME = a random name that has not been used before.
+*/
 void Dungeon::generateRandomName(){
 	m_name = "Dungeon";
 }

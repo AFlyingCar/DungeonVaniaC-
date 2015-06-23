@@ -1,3 +1,6 @@
+/*
+ * Header file for Dungeon class.
+*/
 #ifndef _DUNGEON_H_
 #define _DUNGEON_H_
 
