@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Item.h"
 
 Player::Player():
  m_name(""),
@@ -77,4 +78,12 @@ Calculates the amount of damage the player's armour can absorb
 */
 int Player::getArmourAbsorption(){
 	// TODO - Write this method.
+}
+
+// TODO - write these methods
+bool Player::buyPotion(){
+}
+bool Player::upgradeWeapon(){
+}
+bool Player::upgradeArmour(){
 }

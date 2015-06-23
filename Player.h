@@ -6,7 +6,8 @@
 
 #include "DungeonVania.h"
 
-#include "Item.h"
+class Item;
+class Shop;
 
 class Player{
 public:
@@ -23,6 +24,9 @@ public:
 	std::vector<Item*> getInventory();
 protected:
 	void setName(std::string newName);
+	bool buyPotion();
+	bool upgradeWeapon();
+	bool upgradeArmour();
 private:
 	std::string m_name;
 	int m_money;
@@ -32,5 +36,6 @@ private:
 	void resetInventory();
 public:
 	friend void createNewPlayer(Player*);
+	friend Shop;
 };
 #endif
