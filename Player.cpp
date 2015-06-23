@@ -20,6 +20,9 @@ void Player::setName(std::string newName){
 	m_name = newName;
 }
 
+/*
+Resets the player's inventory to default
+*/
 void Player::resetInventory(){
 	m_inventory.clear();
 	m_inventory.push_back(new Item("Potions"));
@@ -69,6 +72,9 @@ std::vector<Item*> Player::getInventory(){
 	return m_inventory;
 }
 
+/*
+Calculates the amount of damage the player's armour can absorb
+*/
 int Player::getArmourAbsorption(){
 	// TODO - Write this method.
 }

@@ -40,11 +40,17 @@ void Enemy::addDefense(int d){
 	m_defense += d;
 }
 
+/*
+Increases the enemy's defense if it is less than 10
+*/
 void Enemy::defend(){
 	if(m_defense < 10)
 		m_defense++;
 }
 
+/*
+Calculates how to damage the player. Damage dealt is based on damage value and player's armour
+*/
 int Enemy::damagePlayer(Player *p){
 	int damageAmt = (m_damage - p->getArmourAbsorption());
 	p->addHealth(-damageAmt);
@@ -55,11 +61,17 @@ bool Enemy::isDead(){
 	return m_health <= 0;
 }
 
+/*
+Generates the starting health for the enemy
+*/
 void Enemy::generateHealth(){
 	srand(time(NULL));
 	m_health = (int)(rand() % (m_enemyInRoom+10)+10);
 }
 
+/*
+Generates the starting money for the enemy to drop upon death.
+*/
 void Enemy::generateMoney(){
 	srand(time(NULL));
 	m_money = (int)(rand() % (m_enemyInRoom+2)+2);
@@ -71,6 +83,10 @@ void Enemy::generateDefense(){
 	srand(time(NULL));
 	m_defense = (int)(rand() % (2*m_count*(m_enemyInRoom/10.0f)));
 }
+*/
+
+/*
+Generates the starting damage that the enemy can deal
 */
 void Enemy::generateDamage(){
 	srand(time(NULL));
