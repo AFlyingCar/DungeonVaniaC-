@@ -68,3 +68,7 @@ int Player::setHealth(int h){
 std::vector<Item*> Player::getInventory(){
 	return m_inventory;
 }
+
+int Player::getArmourAbsorption(){
+	// TODO - Write this method.
+}

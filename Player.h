@@ -19,6 +19,7 @@ public:
 	int addHealth(int);
 	int setMoney(int);
 	int setHealth(int);
+	int getArmourAbsorption();
 	std::vector<Item*> getInventory();
 protected:
 	void setName(std::string newName);
