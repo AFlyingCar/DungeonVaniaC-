@@ -1,3 +1,7 @@
+/*
+ * Header file for the Item class
+ * Has dynamic attributes, stored as a key-value pair map
+*/
 #ifndef _ITEM_H_
 #define _ITEM_H_
 
@@ -22,3 +26,5 @@ private:
 };
 
 #endif
+
+// And before you ask, yes there is a much better way to do this, but I don't feel like it because it's 12:00 right now and I don't want to change this from the original project

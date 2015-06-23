@@ -6,6 +6,9 @@ Item::Item(std::string newName):
 {}
 Item::~Item(){}
 
+/*
+Add an attribute to the item
+*/
 void Item::addAttribute(std::string key, int value){
 	if(!doesContainAttribute(key))
 		m_attributes.emplace(key,value);
