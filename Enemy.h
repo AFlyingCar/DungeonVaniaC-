@@ -32,11 +32,11 @@ protected:
 	int m_damage;
 	//Room& m_room;
 
-	void generateHealth();
-	void generateMoney();
-	void generateDamage();
-	void generateDefense();
-	void generateName();
+	virtual void generateHealth();
+	virtual void generateMoney();
+	virtual void generateDamage();
+	virtual void generateDefense();
+	virtual void generateName();
 };
 
 #endif

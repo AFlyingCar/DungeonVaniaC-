@@ -84,6 +84,7 @@ void Enemy::generateDefense(){
 	m_defense = (int)(rand() % (2*m_count*(m_enemyInRoom/10.0f)));
 }
 */
+void Enemy::generateDefense(){}
 
 /*
 Generates the starting damage that the enemy can deal
