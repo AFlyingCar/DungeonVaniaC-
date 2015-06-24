@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 #include "Shop.h"
 #include "Player.h"
@@ -48,12 +49,10 @@ std::string Shop::buyHealth(){
 			else
 				break;
 		}
-		std::string r_message = m_player->getName() + ": bought ";
-		r_message += count;
-		r_message += " potion(s)\n" + m_player->getName() + "'s gold: ";
-		r_message += m_player->getMoney();
-		return r_message;
-		//return m_player->getName() + ": bought " + count + " potion(s)\n" + player->getName() + "'s gold.: " + m_player->getMoney();
+		std::stringstream stream;
+		stream << m_player->getName() << ": bought ";
+		stream << count << " potion(s)"/*\n" << m_player->getName() << "'s gold: "*/;
+		return stream.str();
 	}else{
 		std::cout << "You can't buy " << amt << " potions!" << std::endl;
 		return buyHealth();
