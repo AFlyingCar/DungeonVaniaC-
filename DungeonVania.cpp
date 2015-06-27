@@ -3,6 +3,8 @@
 #include "Dungeon.h"
 #include "Shop.h"
 #include "Item.h"
+#include "Enemy.h"
+#include "Room.h"
 
 int main(){
 	Player p;
@@ -15,7 +17,7 @@ int main(){
 	while(true){
 		getMenuText(p);
 		std::cin >> input;
-		getMenu(input,p,s,d);
+		getMenu(input,&p,&s,&d);
 	}
 }
 
@@ -82,9 +84,66 @@ static void deathMessage(Dungeon d){
 }
 */
 
-static void goToDungeon(){
+static void goToDungeon(Player* p, Dungeon* d){
+	std::cout << p->getName() << ": walks to the nearby dungeon." << std::endl;
+	std::vector<Enemy*> enemies;
+	int choice = -1;
+	while(choice != 0 || d->canMoveToNextRoom()){
+		enemies = d->getCurrentRoom()->getEnemies();
+		if(enemies.size()>0)
+			std::cout << p->getName() << ": encounters " << enemies.size() << " enemies." << std::endl;
+		for(int i = 0; i < enemies.size(); i++){
+			std::cout << enemies.at(i)->getName() << " " << (i+1) << "'s health: " << enemies.at(i)->getHealth() << "\t";
+			std::cout << "Defense: " << enemies.at(i)->getDefense() << "\t";
+			std::cout << "Damage: " << enemies.at(i)->getDamage() << "\t" << std::endl;
+		}
+		std::cout << p->getName() << "'s health: " << p->getHealth() << std::endl;
+		std::cout << p->getName() << "'s damage: " << p->getInventory().at(2)->getItemAttribute("MIN_DAMAGE") << " to " << p->getInventory().at(2)->getItemAttribute("MAX_DAMAGE") << std::endl;
+
+		if(d->canMoveToNextRoom()){
+			std::cout << "1. Search room" << std::endl;
+			std::cout << "2. Check Inventory" << std::endl;
+			std::cout << "3. Use Items" << std::endl;
+			std::cout << "4. Move to next Room" << std::endl;
+			std::cout << "0. Escape" << std::endl;
+		}else{
+			std::cout << "1. Attack" << std::endl;
+			std::cout << "2. Check Inventory" << std::endl;
+			std::cout << "3. Use Items" << std::endl;
+			std::cout << "4. Move to next Room" << std::endl;
+			std::cout << "0. Escape" << std::endl;
+		}
+
+		std::cout << "Choice: ";
+		int input;
+		std::cin >> input;
+		switch(input){
+			case 1:
+				if(d->canMoveToNextRoom())
+					p->searchRoom(d->getCurrentRoom());
+				else{
+					if(enemies.size() > 1){
+						std::cout << "Which enemy would you like to attack?" << std::endl;
+						for(int i = 0; i < enemies.size(); i++)
+							std::cout << "Enemy " << (i+1) << "\t";
+						std::cout << "Choice: ";
+						std::cin >> input;
+					}else
+						input = 1;
+					
+				
+					std::cout << "Enemy " << input << ": took " << p->damageEnemy(enemies.at(input-1)) << " damage." << std::endl;
+					if(enemies.at(input)->isDead())
+						std::cout << enemies.at(input)->getName() << input << " died!" << std::endl;
+				}
+				break;
+		}
+	}
 }
 
+/*
+Calls the Shop's menu
+*/
 static void goToStore(Player p, Shop s){
 	std::cout << p.getName() << ": enters the store" << std::endl;
 	std::cout << s.menu() << std::endl;
@@ -93,19 +152,19 @@ static void goToStore(Player p, Shop s){
 /*
 Parse the user's choice and call the appropriate function.
 */
-static void getMenu(int choice, Player p, Shop s, Dungeon d){
+static void getMenu(int choice, Player* p, Shop* s, Dungeon* d){
 	switch(choice){
 	 case 0:
 		endGame();
 		break;
 	 case 1:
-		goToDungeon();
+		goToDungeon(p,d);
 		break;
 	 case 2:
-		goToStore(p,s);
+		goToStore(*p,*s);
 		break;
 	 case 3:
-		printPlayerInventoryWithFormatting(p);
+		printPlayerInventoryWithFormatting(*p);
 		break;
 	 case 4:
 		// Save stuff here

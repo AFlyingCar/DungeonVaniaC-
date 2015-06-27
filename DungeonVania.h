@@ -15,6 +15,6 @@ static void getMenuText(Player p);
 static void printPlayerInventoryWithFormatting(Player p);
 static void endGame();
 static void deathMessage(Dungeon d);
-static void goToDungeon();
+static void goToDungeon(Player* p, Dungeon* d);
 static void goToStore(Player p, Shop s);
-static void getMenu(int choice, Player p, Shop s, Dungeon d);
+static void getMenu(int choice, Player* p, Shop* s, Dungeon* d);
