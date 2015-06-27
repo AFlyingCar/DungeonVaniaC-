@@ -1,5 +1,7 @@
 #include "Player.h"
 #include "Item.h"
+#include "Room.h"
+#include "Enemy.h"
 
 Player::Player():
  m_name(""),
@@ -86,4 +88,29 @@ bool Player::buyPotion(){
 bool Player::upgradeWeapon(){
 }
 bool Player::upgradeArmour(){
+}
+
+void Player::searchRoom(Room* r){
+	int* loot = r->loot();
+	if(loot == NULL){
+		std::cout << "It doesn't appear as though there is anything left in this room." << std::endl;
+		return;
+	}
+	int pAmt = m_inventory.at(0)->getItemAttribute("AMOUNT");
+	m_inventory.at(0)->setItemAttribute("AMOUNT",pAmt+loot[0]);
+	addMoney(loot[1]);
+	std::cout << "Found " << loot[0] << " gold and " << loot[1] << "potions." << std::endl;
+	delete[] loot;
+}
+
+int Player::damageEnemy(Enemy* e){
+	int minDamage = m_inventory.at(2)->getItemAttribute("MIN_DAMAGE");
+	int maxDamage = m_inventory.at(2)->getItemAttribute("MAX_DAMAGE");
+	srand(time(NULL));
+	int damageAmt = rand() % (maxDamage-minDamage) + minDamage;
+	damageAmt -= e->getDefense();
+	if(damageAmt < 0) damageAmt = 0;
+	if(e->getDefense() > 0) e->addDefense(-1);
+	e->addHealth(-damageAmt);
+	return damageAmt;
 }

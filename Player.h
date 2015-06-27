@@ -8,6 +8,8 @@
 
 class Item;
 class Shop;
+class Room;
+class Enemy;
 
 class Player{
 public:
@@ -22,6 +24,8 @@ public:
 	int setHealth(int);
 	int getArmourAbsorption();
 	std::vector<Item*> getInventory();
+	void searchRoom(Room* r);
+	int damageEnemy(Enemy* e);
 protected:
 	void setName(std::string newName);
 	bool buyPotion();
