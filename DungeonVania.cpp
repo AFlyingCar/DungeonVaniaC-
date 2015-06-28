@@ -5,19 +5,25 @@
 #include "Item.h"
 #include "Enemy.h"
 #include "Room.h"
+#include "Logging.h"
 
 int main(){
-	Player p;
-	Dungeon d;
-	Shop s(&p);
-	// TODO: Add save stuff here once it is written
-	createNewPlayer(&p);
-	//std::cout << p.getName() << std::endl;
-	int input = 0;
-	while(true){
-		getMenuText(p);
-		std::cin >> input;
-		getMenu(input,&p,&s,&d);
+	try{
+		Player p;
+		Dungeon d;
+		Shop s(&p);
+		// TODO: Add save stuff here once it is written
+		createNewPlayer(&p);
+		//std::cout << p.getName() << std::endl;
+		int input = 0;
+		while(true){
+			getMenuText(p);
+			std::cin >> input;
+			getMenu(input,&p,&s,&d);
+		}
+	}catch(...){
+		//std::cout << __FILE__ << __LINE__ << ": " << __FUNCTION__ << std::endl;
+		log_error();
 	}
 }
 
@@ -118,6 +124,13 @@ static void goToDungeon(Player* p, Dungeon* d){
 		int input;
 		std::cin >> input;
 		switch(input){
+			int dAmt;
+			case 0:
+				srand(time(NULL));
+				dAmt = rand() %enemies.size();
+				std::cout << p->getName() << " tried to escape, and took " << dAmt << " damage." << std::endl;
+				p->addHealth(-dAmt);
+				return;
 			case 1:
 				if(d->canMoveToNextRoom())
 					p->searchRoom(d->getCurrentRoom());
@@ -133,10 +146,35 @@ static void goToDungeon(Player* p, Dungeon* d){
 					
 				
 					std::cout << "Enemy " << input << ": took " << p->damageEnemy(enemies.at(input-1)) << " damage." << std::endl;
-					if(enemies.at(input)->isDead())
-						std::cout << enemies.at(input)->getName() << input << " died!" << std::endl;
+					log_error();
+					if(enemies.at(input-1)->isDead())
+						std::cout << enemies.at(input-1)->getName() << input << " died!" << std::endl;
 				}
 				break;
+			case 2:
+				printPlayerInventoryWithFormatting(*p);
+				continue;
+			case 3:
+				printPlayerInventoryWithFormatting(*p);
+				std::cout << "How many potions would you like to use: ";
+				std::cin >> input;
+				for(int i=0; i < input; i++)
+					p->usePotion();
+				break;
+			case 4:
+				if(d->moveToNextRoom())
+					std::cout << p->getName() << " moves on from " << (d->getRoomPtr()-1) << ", and ventures further into the dungeon." << std::endl;
+				else
+					std::cout << "Cannot move onto the next room because there are enemies in the way!" << std::endl;
+				continue;
+			default:
+				std::cout << "Invalid choice: " << input;
+				continue;
+		}
+		d->Execute(p);
+		if(p->isDead()){
+			//deathMessage(*d);
+			return;
 		}
 	}
 }
