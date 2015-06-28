@@ -91,7 +91,7 @@ Generates the starting damage that the enemy can deal
 */
 void Enemy::generateDamage(){
 	srand(time(NULL));
-	m_damage = (int)(rand() % (10-m_enemyInRoom)+3);
+	m_damage = (int)(rand() % (9-m_enemyInRoom)+3);
 }
 
 // Generates a unique name for each enemy. Guaranteed to be random.
