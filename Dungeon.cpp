@@ -5,6 +5,7 @@
 #include "Room.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Logging.h"
 
 const int Dungeon::MAX_ROOM_AMT = 100;
 
