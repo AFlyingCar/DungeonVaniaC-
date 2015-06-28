@@ -80,6 +80,7 @@ Calculates the amount of damage the player's armour can absorb
 */
 int Player::getArmourAbsorption(){
 	// TODO - Write this method.
+	return 0;
 }
 
 // TODO - write these methods
@@ -110,7 +111,21 @@ int Player::damageEnemy(Enemy* e){
 	int damageAmt = rand() % (maxDamage-minDamage) + minDamage;
 	damageAmt -= e->getDefense();
 	if(damageAmt < 0) damageAmt = 0;
-	if(e->getDefense() > 0) e->addDefense(-1);
+	if(e->getDefense() > 0) e->addDefense(-2);
 	e->addHealth(-damageAmt);
 	return damageAmt;
+}
+
+std::string Player::usePotion(){
+	int pAmt = m_inventory.at(0)->getItemAttribute("AMOUNT");
+	if(pAmt > 0){
+		m_inventory.at(0)->setItemAttribute("AMOUNT",pAmt-1);
+		addHealth(m_inventory.at(0)->getItemAttribute("HEALTH_POINTS"));
+		return "Consumed 1 potion.";
+	}else
+		return "No potions!";
+}
+
+bool Player::isDead(){
+	return m_health <= 0;
 }

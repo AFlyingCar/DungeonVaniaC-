@@ -26,6 +26,8 @@ public:
 	std::vector<Item*> getInventory();
 	void searchRoom(Room* r);
 	int damageEnemy(Enemy* e);
+	std::string usePotion();
+	bool isDead();
 protected:
 	void setName(std::string newName);
 	bool buyPotion();
